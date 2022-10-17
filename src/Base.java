@@ -1,28 +1,32 @@
 package src;
 
+import java.util.List;
+
 public class Base {
-    private Engine engine;
-    private Wheel wheel1;
-    private Wheel wheel2;
-    private Wheel wheel3;
-    private Wheel wheel4;
-    private Transmission transmission;
+    private Engine1 engine;
+    private Wheel1 wheel1;
+    private Wheel1 wheel2;
+    private Wheel1 wheel3;
+    private Wheel1 wheel4;
+    private Transmission1 transmission;
     private Doors door1;
     private Doors door2;
     private Condicioner condicioner;
     private Steering steering;
+    private List<Checkable> checkables;
     
     public Base() {
-        engine = new Engine();
-        wheel1 = new Wheel();
-        wheel2 = new Wheel();
-        wheel3 = new Wheel();
-        wheel4 = new Wheel();
-        transmission = new Transmission();
+        engine = new GasalineEngine();
+        wheel1 = new Wheel1();
+        wheel2 = new Wheel1();
+        wheel3 = new Wheel1();
+        wheel4 = new Wheel1();
+        transmission = new Transmission1();
         door1 = new Doors();
         door2 = new Doors();
         condicioner = new Condicioner();
         steering = new Steering();
+        checkables = List.of(engine, wheel1, wheel2, wheel3, wheel4, transmission);
     }
     
     public void start() {
@@ -35,7 +39,7 @@ public class Base {
     
     public void drive () {
         if (engine.getWork()) {
-            transmission.switchGear(1);
+            engine.throttleUp(1);
             steering.turnleft();
             wheel1.rotate();
             wheel2.rotate();
@@ -46,7 +50,21 @@ public class Base {
     }
     
     public void stop() {
+        transmission.switchGear(0);
+        engine.throttleDown(0);
         condicioner.stop();
         engine.stop();
+    }
+
+    public void сheckAll() {
+        //engine.check();
+        //transmission.check();
+        //wheel1.check();
+        //wheel2.check();
+        //wheel3.check();
+        //wheel4.check();
+    for (Checkable checkables : checkables) {
+    checkables.check();
+    }
     }
     }
